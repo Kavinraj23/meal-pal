@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,21 +25,22 @@ const Home = () => {
           { withCredentials: true }
         );
 
-        console.log("API Response:", data); // Log API response
+        console.log("API Response:", data);
 
         const { status, user } = data;
 
         if (status) {
           setUsername(user);
-          setLoading(false);
         } else {
           removeCookie("token");
           navigate("/");
         }
       } catch (err) {
         console.error("Error verifying cookie:", err);
-        removeCookie("token"); // Remove cookie on error
+        removeCookie("token");
         navigate("/");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -51,7 +53,7 @@ const Home = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingAnimation />;
   }
 
   return (

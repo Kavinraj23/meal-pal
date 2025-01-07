@@ -1,4 +1,4 @@
-import mealPalLogo from "../assets/meal-pal-logo.png";
+import mealPalLogo from "../assets/images/meal-pal-logo.png";
 
 const LandingContent = () => {
   return (

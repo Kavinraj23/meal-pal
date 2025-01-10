@@ -59,7 +59,6 @@ const AuthForm = ({ isLogin, setIsLogin }) => {
   const validateInputs = () => {
     let valid = true;
 
-    // Validate each field and check if any validation fails
     if (!validateField("email", email)) valid = false;
     if (!validateField("password", password)) valid = false;
     if (!isLogin && !validateField("username", username)) valid = false;
@@ -85,14 +84,25 @@ const AuthForm = ({ isLogin, setIsLogin }) => {
         withCredentials: true,
       });
 
-      const { success, message } = data;
+      const { success, message, quizCompleted } = data;
       if (success) {
         toast.success(message, { position: "bottom-left" });
 
-        // Redirect to home page after a short delay
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000);
+        if (!isLogin) {
+          setTimeout(() => {
+            navigate("/quiz"); // Redirect to quiz after successful signup
+          }, 1000);
+        } else {
+          if (quizCompleted) {
+            setTimeout(() => {
+              navigate("/home");
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              navigate("/quiz"); // redirect to quiz if not cmopleted
+            }, 1000);
+          }
+        }
       } else {
         toast.error(message, { position: "bottom-left" });
       }

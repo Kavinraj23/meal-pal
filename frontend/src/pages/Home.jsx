@@ -16,7 +16,6 @@ const Home = () => {
       try {
         if (!cookies.token) {
           navigate("/");
-          return;
         }
 
         const { data } = await axios.post(
@@ -24,8 +23,6 @@ const Home = () => {
           {},
           { withCredentials: true }
         );
-
-        console.log("API Response:", data);
 
         const { status, user } = data;
 

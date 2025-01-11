@@ -90,15 +90,18 @@ const AuthForm = ({ isLogin, setIsLogin }) => {
 
         if (!isLogin) {
           setTimeout(() => {
+            console.log("navigating to quiz");
             navigate("/quiz"); // Redirect to quiz after successful signup
           }, 1000);
         } else {
           if (quizCompleted) {
             setTimeout(() => {
+              console.log("navigating to home");
               navigate("/home");
             }, 1000);
           } else {
             setTimeout(() => {
+              console.log("navigating to quiz");
               navigate("/quiz"); // redirect to quiz if not cmopleted
             }, 1000);
           }
